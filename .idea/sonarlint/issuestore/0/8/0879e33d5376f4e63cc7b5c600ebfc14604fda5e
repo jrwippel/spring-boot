@@ -1,0 +1,10 @@
+
+s
+java:S3753"XAdd a call to "setComplete()" on the SessionStatus object in a "@RequestMapping" method.(ÕÙ¹³úÿÿÿÿ
+c
+java:S4488"HReplace "@RequestMapping(method = RequestMethod.GET)" with "@GetMapping"(·„ Œøÿÿÿÿ
+Š
+java:S1128"mRemove this unused import 'com.in28minuts.springboot.web.springbootfirstwebaplication.services.LoginService'.(Â£¬Œ8Ð£ø¡ÿ/
+s
+java:S1128
+"QRemove this unused import 'org.springframework.web.bind.annotation.RequestParam'.(Â¬À·ùÿÿÿÿ8Ð£ø¡ÿ/

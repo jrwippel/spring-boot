@@ -14,10 +14,10 @@ public class TodoService {
     private static int todoCount = 3;
 
     static {
-        todos.add(new Todo(1, "in28Minutes", "Learn Spring MVC", new Date(),
+        todos.add(new Todo(1, "Jackson", "Learn Spring MVC", new Date(),
                 false));
-        todos.add(new Todo(2, "in28Minutes", "Learn Struts", new Date(), false));
-        todos.add(new Todo(3, "in28Minutes", "Learn Hibernate", new Date(),
+        todos.add(new Todo(2, "Jackson", "Learn Struts", new Date(), false));
+        todos.add(new Todo(3, "Jackson", "Learn Hibernate", new Date(),
                 false));
     }
 
@@ -30,7 +30,6 @@ public class TodoService {
         }
         return filteredTodos;
     }
-
     public void addTodo(String name, String desc, Date targetDate,
             boolean isDone) {
         todos.add(new Todo(++todoCount, name, desc, targetDate, isDone));
