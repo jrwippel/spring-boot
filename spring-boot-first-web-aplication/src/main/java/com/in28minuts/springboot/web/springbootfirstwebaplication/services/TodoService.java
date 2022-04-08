@@ -11,13 +11,15 @@ import java.util.List;
 @Service
 public class TodoService {
     private static List<Todo> todos = new ArrayList<Todo>();
-    private static int todoCount = 3;
+    private static int todoCount = 4;
 
     static {
         todos.add(new Todo(1, "Jackson", "Learn Spring MVC", new Date(),
                 false));
         todos.add(new Todo(2, "Jackson", "Learn Struts", new Date(), false));
         todos.add(new Todo(3, "Jackson", "Learn Hibernate", new Date(),
+                false));
+        todos.add(new Todo(4, "James", "Learn JAVA/JPA", new Date(),
                 false));
     }
 
