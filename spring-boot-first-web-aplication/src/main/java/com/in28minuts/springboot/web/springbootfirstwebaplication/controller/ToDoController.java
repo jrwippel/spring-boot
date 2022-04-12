@@ -36,12 +36,6 @@ public class ToDoController {
         return "todo";
     }
 
-    @RequestMapping(value = "/delete-todos", method = RequestMethod.GET)
-    public String deleteTodos(@RequestParam Integer id) {
-        todoService.deleteTodo(id);
-        return "redirect:/list-todos";
-    }
-
     @RequestMapping(value = "/add-todos", method = RequestMethod.POST)
     public String addTodos(ModelMap model, @Valid Todo todo, BindingResult result) {
 
@@ -51,6 +45,30 @@ public class ToDoController {
         todoService.addTodo((String) model.get("name"), todo.getDesc(), new Date(), false);
         return "redirect:/list-todos";
     }
+    @RequestMapping(value = "/delete-todos", method = RequestMethod.GET)
+    public String deleteTodos(@RequestParam Integer id) {
+        todoService.deleteTodo(id);
+        return "redirect:/list-todos";
+    }
+
+    @RequestMapping(value = "/update-todos", method = RequestMethod.GET)
+    public String ShowUpdateTodoPage(@RequestParam Integer id, ModelMap modelMap) {
+        Todo todo = todoService.retrieveTodo(id);
+        modelMap.put("todo", todo );
+        return "todo";
+    }
+    @RequestMapping(value = "/update-todos", method = RequestMethod.POST)
+    public String updateTodos(ModelMap model, @Valid Todo todo, BindingResult result) {
+
+        if (result.hasErrors()){
+            return "todo";
+        }
+        todo.setUser((String) model.get("name"));
+
+        todoService.updateTodo(todo);
+        return "redirect:/list-todos";
+    }
+
 
     @RequestMapping(value = "/list-todos-other-user", method = RequestMethod.GET)
     public String listTodosOtherUser(ModelMap model) {
