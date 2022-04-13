@@ -4,15 +4,17 @@ import com.in28minuts.springboot.web.springbootfirstwebaplication.model.Todo;
 import com.in28minuts.springboot.web.springbootfirstwebaplication.services.LoginService;
 import com.in28minuts.springboot.web.springbootfirstwebaplication.services.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomBooleanEditor;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -22,6 +24,14 @@ public class ToDoController {
 
     @Autowired
     TodoService todoService;
+
+    @InitBinder
+    public void initBinder(WebDataBinder webDataBinder){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, false));
+
+
+    }
 
     @RequestMapping(value = "/list-todos", method = RequestMethod.GET)
     public String showTodos(ModelMap model) {
@@ -42,7 +52,7 @@ public class ToDoController {
         if (result.hasErrors()){
             return "todo";
         }
-        todoService.addTodo((String) model.get("name"), todo.getDesc(), new Date(), false);
+        todoService.addTodo((String) model.get("name"), todo.getDesc(), todo.getTargetDate(), false);
         return "redirect:/list-todos";
     }
     @RequestMapping(value = "/delete-todos", method = RequestMethod.GET)
