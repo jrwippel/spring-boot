@@ -18,21 +18,10 @@ public class LoginController {
     LoginService loginService = new LoginService();
 
 
-    @RequestMapping(value="/access", method = RequestMethod.GET)
+    @RequestMapping(value="/", method = RequestMethod.GET)
     public String showLoginPage(ModelMap model){
-        return "access";
+        model.put("name", "Jackson");
+        return "welcome";
     }
 
-    @RequestMapping(value = "/access", method = RequestMethod.POST)
-    public String accessMessage(ModelMap modelMap, @RequestParam String name, @RequestParam String password){
-
-        if (loginService.isValidLogin(name, password)){
-            modelMap.put("name", name);
-            modelMap.put("password", password);
-            return "welcome";
-        }else{
-            modelMap.put("errorMessage", "Invalid Credentials");
-            return "access";
-        }
-    }
 }
