@@ -1,25 +1,27 @@
 package com.in28minuts.springboot.web.springbootfirstwebaplication.controller;
 
 import com.in28minuts.springboot.web.springbootfirstwebaplication.model.Todo;
-import com.in28minuts.springboot.web.springbootfirstwebaplication.services.LoginService;
 import com.in28minuts.springboot.web.springbootfirstwebaplication.services.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomBooleanEditor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
 @Controller
-@SessionAttributes("name")
+//@SessionAttributes("name")
 public class ToDoController {
 
     @Autowired
@@ -98,6 +100,16 @@ public class ToDoController {
         model.put("todos", todoService.retrieveTodos(otheruser));
         model.put("name", otheruser);
         return "list-todos";
+    }
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpServletRequest request,
+                         HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext()
+                .getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/";
     }
 }
 
